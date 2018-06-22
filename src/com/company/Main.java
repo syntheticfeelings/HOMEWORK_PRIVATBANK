@@ -1,19 +1,17 @@
 package com.company;
 
-import java.util.Currency;
-import java.util.List;
+
+import com.google.gson.Gson;
 
 
 public class Main {
 
     public static void main(String[] args) {
-        GoonReader jsonReader = new GoonReader();
-        String url = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5";
+        String url = "https://api.privatbank.ua/p24api/exchange_rates?json&date=01.12.2014";
         String result = HttpUtil.sendRequest(url, null, null);
-        List<com.company.Currency> currencies = jsonReader.getPersons(result);
-
-        for (com.company.Currency currency:currencies){
-            System.out.println(currency);
-        }
+        Gson gson = new Gson();
+        CurrencyForDate currencyForDate = gson.fromJson(result, CurrencyForDate.class);
+        
+        System.out.println(currencyForDate.exchangeRates);
     }
 }
