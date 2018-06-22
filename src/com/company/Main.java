@@ -11,7 +11,7 @@ public class Main {
         String result = HttpUtil.sendRequest(url, null, null);
         Gson gson = new Gson();
         CurrencyForDate currencyForDate = gson.fromJson(result, CurrencyForDate.class);
-        
+        System.out.println(currencyForDate);
         System.out.println(currencyForDate.exchangeRates);
     }
 }
