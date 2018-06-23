@@ -3,15 +3,27 @@ package com.company;
 
 import com.google.gson.Gson;
 
+import java.util.Scanner;
+
 
 public class Main {
 
     public static void main(String[] args) {
-        String url = "https://api.privatbank.ua/p24api/exchange_rates?json&date=01.12.2014";
-        String result = HttpUtil.sendRequest(url, null, null);
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Введите дату : ДД.ММ.ГГГГ");
+        String date = sc.nextLine();
+        String url = "https://api.privatbank.ua/p24api/exchange_rates?json&date=";
+        StringBuilder sb = new StringBuilder(url);
+        sb.append(date);
+        String result = HttpUtil.sendRequest(sb.toString(), null, null);
         Gson gson = new Gson();
         CurrencyForDate currencyForDate = gson.fromJson(result, CurrencyForDate.class);
-        System.out.println(currencyForDate);
-        System.out.println(currencyForDate.exchangeRates);
+
+        try {
+            System.out.println(currencyForDate.getExchangeRate().get(15));
+        } catch (Exception e) {
+            System.out.println("Что то пошло не так...");
+        }
+
     }
 }
