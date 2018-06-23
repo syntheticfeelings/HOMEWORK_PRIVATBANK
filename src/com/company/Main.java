@@ -22,7 +22,7 @@ public class Main {
         try {
             System.out.println(currencyForDate.getExchangeRate().get(15));
         } catch (Exception e) {
-            System.out.println("Что то пошло не так...");
+            System.out.println("Введите дату в правильном формате");
         }
 
     }
